@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Services
 {
-    public class LeadService : ILeadServices
+    public class ClientService : IClientService
     {
         public int Test()
         {

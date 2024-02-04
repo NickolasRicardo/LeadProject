@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LeadApplication.Domain.Interfaces.Services
 {
-    public interface ILeadServices
+    public interface IClientService
     {
         int Test();
     }

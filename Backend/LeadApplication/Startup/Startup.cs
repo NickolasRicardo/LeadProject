@@ -2,7 +2,9 @@
 using LeadApplication.Domain.Commands.CreateTeste;
 using LeadApplication.Domain.Interfaces.Services;
 using LeadApplication.Domain.Query.ListTeste;
+using LeadApplication.Infrastructure.Database;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace LeadApplication.API
 {
@@ -40,15 +42,21 @@ namespace LeadApplication.API
 
         public void ConfigureDependencies(IServiceCollection services)
         {
+            string conn = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(conn));
 
-            services.AddScoped<ILeadServices, LeadService>();
+            services.AddScoped<IJobService, JobService>();
+            services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<ISendEmailService, SendEmailService>();
             services.AddScoped<IMediator, Mediator>();
 
             services.AddMediatR(cfg =>
                     cfg.RegisterServicesFromAssemblies(
                         typeof(CreateTesteCommandHandler).Assembly,
                         typeof(ListTesteQueryHandler).Assembly)
-                    );
+            );
+
+       
         }
     }
 }

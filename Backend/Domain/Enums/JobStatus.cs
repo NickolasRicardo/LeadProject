@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LeadApplication.Domain.Interfaces.Repositories
+namespace LeadApplication.Domain.Enums
 {
-    public interface ITesteRepository
+    public enum JobStatus
     {
-
-
+        Pendente = 0,
+        Aprovado = 1,
+        Negado = 2
     }
 }
