@@ -29,7 +29,8 @@ namespace LeadApplication.API
                 .AddJsonOptions(options =>
                     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles
                 ) ;
-                
+
+           services.AddCors(builder => builder.AddPolicy("AllowEveryone", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().SetIsOriginAllowed((host) => true)));
 
         }
 
@@ -41,7 +42,7 @@ namespace LeadApplication.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LeadApplication v1"));
             }
-
+            app.UseCors("AllowEveryone");
             app.UseHttpsRedirection();
 
             app.MapControllers();
