@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
 using LeadApplication.Domain.Interfaces.Repositories;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace LeadApplication.Infrastructure.Database.Repository
 {
@@ -43,7 +43,7 @@ namespace LeadApplication.Infrastructure.Database.Repository
 
         public async Task<List<JobEntity>> GetByStatus(int status)
         {
-            return await _context.Job.Where(j=> (int) j.Status == status ).ToListAsync();
+            return await _context.Job.Include(j=> j.Client).Where(j=> (int) j.Status == status ).ToListAsync();
         }
 
     }

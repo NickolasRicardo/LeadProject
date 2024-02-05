@@ -1,10 +1,13 @@
 ﻿using Domain.Services;
 using LeadApplication.Domain.Commands.CreateTeste;
+using LeadApplication.Domain.Interfaces.Repositories;
 using LeadApplication.Domain.Interfaces.Services;
 using LeadApplication.Domain.Query.ListTeste;
 using LeadApplication.Infrastructure.Database;
+using LeadApplication.Infrastructure.Database.Repository;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace LeadApplication.API
 {
@@ -22,8 +25,12 @@ namespace LeadApplication.API
             ConfigureDependencies(services);
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
-            services.AddControllers();
-       
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles
+                ) ;
+                
+
         }
 
         public void Configure(WebApplication app, IWebHostEnvironment environment)
@@ -48,12 +55,16 @@ namespace LeadApplication.API
             services.AddScoped<IJobService, JobService>();
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<ISendEmailService, SendEmailService>();
+
+            services.AddScoped<IJobRepository, JobRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
+
             services.AddScoped<IMediator, Mediator>();
 
             services.AddMediatR(cfg =>
                     cfg.RegisterServicesFromAssemblies(
-                        typeof(CreateTesteCommandHandler).Assembly,
-                        typeof(ListTesteQueryHandler).Assembly)
+                        typeof(UpdateJobCommandHandler).Assembly,
+                        typeof(ListJobQueryHandler).Assembly)
             );
 
        

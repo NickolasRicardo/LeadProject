@@ -9,8 +9,9 @@ using System.Windows.Input;
 
 namespace LeadApplication.Domain.Commands.CreateTeste
 {
-    public class CreateTesteCommand : IRequest<string>
+    public class UpdateJobCommand : IRequest<bool>
     {
-        public string Name { get; set; }
+        public int Id { get; set; }
+        public bool Approved { get; set; }
     }
 }

@@ -28,8 +28,9 @@ namespace LeadApplication.Infrastructure.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<JobEntity>().HasOne(j => j.Client).WithMany(c => c.Jobs).HasForeignKey(j => j.Client).HasPrincipalKey(j => j.Id);
+            modelBuilder.Entity<JobEntity>().HasOne(j => j.Client).WithMany(c => c.Jobs).HasForeignKey(j => j.ClientId).HasPrincipalKey(j => j.Id);
             modelBuilder.Entity<JobEntity>().Property(j => j.Category).HasConversion<int>();
+            modelBuilder.Entity<JobEntity>().Property(j => j.Status).HasConversion<int>();
             modelBuilder.Entity<ClientEntity>().HasKey(c => c.Id).HasName("ID");
         }
 
