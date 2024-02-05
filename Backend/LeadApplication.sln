@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeadApplication", "LeadAppl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeadApplication.Domain", "Domain\LeadApplication.Domain.csproj", "{530C1003-5B41-46E3-9E05-66C8E2509A7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeadApplication.Infrastructure", "LeadApplication.Infrastructure\LeadApplication.Infrastructure.csproj", "{7A4B770D-186E-4117-9DEC-BE52FDF99897}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeadApplication.Infrastructure", "Infrastructure\LeadApplication.Infrastructure.csproj", "{7A4B770D-186E-4117-9DEC-BE52FDF99897}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
