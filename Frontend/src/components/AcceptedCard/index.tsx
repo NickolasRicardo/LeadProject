@@ -1,4 +1,4 @@
-import { Place, Work } from '@mui/icons-material'
+import { Email, Phone, Place, Work } from '@mui/icons-material'
 import { Avatar, Grid } from '@mui/material'
 
 type AcceptedCardProps = {
@@ -9,6 +9,21 @@ type AcceptedCardProps = {
   id: number
   description: string
   price: number
+  email: string
+  phone: string
+}
+
+export function convertCategory(category: number) {
+  switch (category) {
+    case 1:
+      return 'Painters'
+    case 2:
+      return 'Interior Painters'
+    case 3:
+      return 'General Building Work'
+    case 4:
+      return 'Home Renovations'
+  }
 }
 
 export function AcceptedCard({
@@ -19,6 +34,8 @@ export function AcceptedCard({
   name,
   suburb,
   price,
+  email,
+  phone,
 }: AcceptedCardProps) {
   function stringToColor(string: string) {
     let hash = 0
@@ -41,11 +58,16 @@ export function AcceptedCard({
   }
 
   function stringAvatar(name: string) {
+    const newName =
+      name.split(' ').length > 1
+        ? `${name[0]}${name.split(' ')[name.split(' ').length - 1][0]}`
+        : `${name[0]}`
+
     return {
       sx: {
         bgcolor: stringToColor(name),
       },
-      children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+      children: newName,
     }
   }
 
@@ -53,7 +75,6 @@ export function AcceptedCard({
     <Grid
       container
       style={{
-        border: '1px solid black',
         height: 300,
         background: 'white',
       }}
@@ -93,7 +114,7 @@ export function AcceptedCard({
                 {name}
               </Grid>
               <Grid item xs={12}>
-                {createdAt.toUTCString()}
+                {new Date(createdAt).toDateString()}
               </Grid>
             </Grid>
           </Grid>
@@ -128,7 +149,7 @@ export function AcceptedCard({
               alignItems: 'center',
             }}
           >
-            <Work /> {category}
+            <Work /> {convertCategory(category)}
           </Grid>
           <Grid
             item
@@ -154,12 +175,36 @@ export function AcceptedCard({
           </Grid>
         </Grid>
       </Grid>
-      <Grid
-        item
-        xs={12}
-        style={{ minHeight: '50%', borderBottom: '1px solid black' }}
-      >
-        <p style={{ padding: '10px' }}>{description}</p>
+      <Grid item xs={12} style={{ minHeight: '50%' }}>
+        <Grid container>
+          <Grid
+            item
+            xs={6}
+            style={{
+              maxHeight: '10%',
+              display: 'flex',
+              alignItems: 'center',
+              color: 'orange',
+            }}
+          >
+            <Phone style={{ color: 'black' }} /> {phone}
+          </Grid>
+          <Grid
+            item
+            xs={6}
+            style={{
+              maxHeight: '10%',
+              display: 'flex',
+              alignItems: 'center',
+              color: 'orange',
+            }}
+          >
+            <Email style={{ color: 'black' }} /> {email}
+          </Grid>
+          <Grid item xs={12}>
+            <p style={{ padding: '10px' }}>{description}</p>
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   )

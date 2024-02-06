@@ -7,6 +7,7 @@ import TabPanel from '@mui/lab/TabPanel'
 import { InvitedCard } from '../../components/InvitedCard'
 import { Grid } from '@mui/material'
 import Services, { IJob } from './services'
+import { AcceptedCard } from '../../components/AcceptedCard'
 
 export function Home() {
   const [value, setValue] = React.useState('1')
@@ -46,23 +47,47 @@ export function Home() {
               </Tabs>
             </Box>
             <TabPanel value="1" style={{ background: 'rgb(239 239 239)' }}>
-              {jobs?.map((item) => {
-                console.log(item)
-                return (
-                  <InvitedCard
-                    key={item?.id}
-                    category={item?.category}
-                    createdAt={item?.createdAt}
-                    description={item?.description}
-                    name={item?.client.name}
-                    price={item?.price}
-                    suburb={item?.client.suburb}
-                    id={item?.id}
-                  />
-                )
-              })}
+              <Grid container>
+                {jobs?.map((item) => {
+                  return (
+                    <Grid item xs={12} key={item?.id} margin={1}>
+                      <InvitedCard
+                        key={item?.id}
+                        category={item?.category}
+                        createdAt={item?.createdAt}
+                        description={item?.description}
+                        name={item?.client.name.split(' ')[0]}
+                        price={item?.price}
+                        suburb={item?.client.suburb}
+                        id={item?.id}
+                      />
+                    </Grid>
+                  )
+                })}
+              </Grid>
             </TabPanel>
-            <TabPanel value="2">Item Two</TabPanel>
+            <TabPanel value="2" style={{ background: 'rgb(239 239 239)' }}>
+              <Grid container>
+                {jobs?.map((item) => {
+                  return (
+                    <Grid item xs={12} key={item?.id} margin={1}>
+                      <AcceptedCard
+                        key={item?.id}
+                        category={item?.category}
+                        createdAt={item?.createdAt}
+                        description={item?.description}
+                        name={item?.client.name}
+                        price={item?.price}
+                        suburb={item?.client.suburb}
+                        id={item?.id}
+                        email={item.client.email}
+                        phone={item.client.phoneNumber}
+                      />
+                    </Grid>
+                  )
+                })}
+              </Grid>
+            </TabPanel>
           </TabContext>
         </Box>
       </Grid>

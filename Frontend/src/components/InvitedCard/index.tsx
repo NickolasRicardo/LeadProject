@@ -1,5 +1,7 @@
 import { Place, Work } from '@mui/icons-material'
 import { Avatar, Button, Grid } from '@mui/material'
+import Services from './services'
+import { convertCategory } from '../AcceptedCard'
 
 type InvitedCardsProps = {
   name: string
@@ -41,11 +43,28 @@ export function InvitedCard({
   }
 
   function stringAvatar(name: string) {
+    const newName =
+      name.split(' ').length > 1
+        ? `${name[0]}${name.split(' ')[name.split(' ').length - 1][0]}`
+        : `${name[0]}`
+
     return {
       sx: {
         bgcolor: stringToColor(name),
       },
-      children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+      children: newName,
+    }
+  }
+
+  async function handleUpdate(status: number) {
+    const services = new Services()
+
+    const approved = status === 1
+
+    const { error } = await services.Update({ id, approved })
+
+    if (!error) {
+      console.log('deu certo')
     }
   }
 
@@ -53,8 +72,7 @@ export function InvitedCard({
     <Grid
       container
       style={{
-        border: '1px solid black',
-        height: 300,
+        height: 350,
         background: 'white',
       }}
     >
@@ -72,7 +90,7 @@ export function InvitedCard({
           container
           style={{
             paddingBottom: '5px',
-            borderBottom: '1px solid black',
+            borderBottom: '1px solid #0000008c',
           }}
         >
           <Grid
@@ -93,13 +111,13 @@ export function InvitedCard({
                 {name}
               </Grid>
               <Grid item xs={12}>
-                {createdAt.toUTCString()}
+                {new Date(createdAt).toDateString()}
               </Grid>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={12} style={{ borderBottom: '1px solid black' }}>
+      <Grid item xs={12} style={{ borderBottom: '1px solid #0000008c' }}>
         <Grid
           container
           style={{
@@ -128,7 +146,7 @@ export function InvitedCard({
               alignItems: 'center',
             }}
           >
-            <Work /> {category}
+            <Work /> {convertCategory(category)}
           </Grid>
           <Grid
             item
@@ -146,15 +164,23 @@ export function InvitedCard({
       <Grid
         item
         xs={12}
-        style={{ minHeight: '50%', borderBottom: '1px solid black' }}
+        style={{ minHeight: '40%', borderBottom: '1px solid #0000008c' }}
       >
         <p style={{ padding: '10px' }}>{description}</p>
       </Grid>
-      <Grid item xs={12} style={{ height: '15%' }}>
-        <Grid container style={{ display: 'flex' }}>
+      <Grid item xs={12} style={{ height: '15%', display: 'flex' }}>
+        <Grid
+          container
+          style={{ justifyContent: 'center', alignSelf: 'center' }}
+        >
           <Grid item xs={1} style={{ maxHeight: '10%' }} />
           <Grid item xs={2} style={{ maxHeight: '10%' }}>
-            <Button variant="contained" color="primary" fullWidth>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={() => handleUpdate(1)}
+            >
               Accept
             </Button>
           </Grid>
@@ -166,6 +192,7 @@ export function InvitedCard({
               title="teste"
               fullWidth
               style={{ color: 'black' }}
+              onClick={() => handleUpdate(2)}
             >
               Decline
             </Button>
