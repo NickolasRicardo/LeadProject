@@ -14,6 +14,7 @@ export function Home() {
   const [jobs, setJobs] = React.useState<IJob[] | []>([])
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    console.log(event)
     setValue(newValue)
   }
 

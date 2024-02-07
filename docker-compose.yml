@@ -9,12 +9,10 @@ services:
       ACCEPT_EULA: "Y"
       MSSQL_TCP_ENABLED: 1
       MSSQL_SA_ACCEPT_REMOTE_CONNECTIONS: 1
-    volumes:     
-      - sqlserver-data:/var/opt/mssql/data
     ports:
       - "1433:1433"
 
-  myapp:
+  dotnet:
     build:
       context: .
       dockerfile: ./Backend/LeadApplication/Dockerfile
@@ -26,6 +24,13 @@ services:
     depends_on:
       - sqlserver
 
-volumes:
-  sqlserver-data:
-    
+  react:
+    build:
+      context: .
+      dockerfile: ./Frontend/Dockerfile
+ 
+    ports:
+      - "3000:3000"
+      - "3010:3010"
+    depends_on:
+      - dotnet
