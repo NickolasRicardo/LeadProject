@@ -30,10 +30,19 @@ namespace LeadApplication.Infrastructure.Seed
                     Suburb = "87994 Tertuliano Marginal - Igaratinga, SE",
                 };
 
+                var clientFernanda = new ClientEntity()
+                {
+                    Name = "Fernanda Amaral",
+                    Email = "fernanda@gmail.com",
+                    PhoneNumber = "12123456789",
+                    Suburb = "867 Fábio Rodovia - Viradouro, CE",
+                };
+
                 context.Client.AddRange(new List<ClientEntity>()
                 {
                     clientJoao,
-                    clientJose
+                    clientJose,
+                    clientFernanda
                 });
 
                 var Job1 = new JobEntity()
@@ -80,7 +89,40 @@ namespace LeadApplication.Infrastructure.Seed
                     Description = "I'm seeking a professional service to replace the faucet in my kitchen/bathroom. I need a quick and efficient replacement to fix leaks and improve the water system's functionality.",
                 };
 
-                context.Job.AddRange(new List<JobEntity>() { Job1, Job2, Job3, Job4 });
+                var Job5 = new JobEntity()
+                {
+                    Category = Domain.Enums.JobCategory.GeneralBuildingWork,
+                    Client = clientFernanda,
+                    ClientId = clientFernanda.Id,
+                    Price = 200,
+                    Status = Domain.Enums.JobStatus.Pendente,
+                    CreatedAt = DateTime.Now,
+                    Description = "I need help with landscaping my backyard. I'd like to create a low-maintenance garden with native plants, rocks, and a small water feature. I also need someone to trim the trees and bushes in the front yard."
+                };
+
+                var Job6 = new JobEntity()
+                {
+                    Category = Domain.Enums.JobCategory.GeneralBuildingWork,
+                    Client = clientFernanda,
+                    ClientId = clientFernanda.Id,
+                    Price = 800,
+                    Status = Domain.Enums.JobStatus.Pendente,
+                    CreatedAt = DateTime.Now,
+                    Description = "I have a leaky roof that needs to be fixed as soon as possible. I would like a professional to inspect the roof, identify the source of the leak, and provide an estimate for the repair. If the repair is not cost-effective, I would like to explore options for roof replacement."
+                };
+
+                var Job7 = new JobEntity()
+                {
+                    Category = Domain.Enums.JobCategory.InteriorPainters,
+                    Client = clientFernanda,
+                    ClientId = clientFernanda.Id,
+                    Price = 500,
+                    Status = Domain.Enums.JobStatus.Pendente,
+                    CreatedAt = DateTime.Now,
+                    Description = "I would like to paint the interior of my house. I need someone to prime and paint the walls, ceiling, and trim in the living room, dining room, and kitchen. I would like to schedule the work for next week and have it completed within two days."
+                };
+
+                context.Job.AddRange(new List<JobEntity>() { Job1, Job2, Job3, Job4, Job5, Job6, Job7 });
 
                 context.SaveChanges();
             }
