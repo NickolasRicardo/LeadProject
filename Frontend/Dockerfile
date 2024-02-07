@@ -27,6 +27,9 @@ COPY --from=dependencies /home/node/node_docker/package.json $HOME
 COPY --from=dependencies /home/node/node_docker/public $HOME/public
 COPY --from=dependencies /home/node/node_docker/tsconfig.json $HOME
 COPY --from=dependencies /home/node/node_docker/vite.config.ts $HOME
+COPY --from=dependencies /home/node/node_docker/tsconfig.node.json $HOME
+COPY --from=dependencies /home/node/node_docker/.eslintrc.json $HOME
+COPY --from=dependencies /home/node/node_docker/index.html $HOME
 COPY --from=dependencies /home/node/node_docker/src $HOME/src
 
 # Run with node user

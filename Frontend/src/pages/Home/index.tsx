@@ -6,28 +6,20 @@ import Tab from '@mui/material/Tab'
 import TabPanel from '@mui/lab/TabPanel'
 import { InvitedCard } from '../../components/InvitedCard'
 import { Grid } from '@mui/material'
-import Services, { IJob } from './services'
 import { AcceptedCard } from '../../components/AcceptedCard'
+import { useJob } from '../../hooks/JobContext'
 
 export function Home() {
   const [value, setValue] = React.useState('1')
-  const [jobs, setJobs] = React.useState<IJob[] | []>([])
+  const { jobs, GetJobs } = useJob()
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     console.log(event)
     setValue(newValue)
   }
 
-  const GetJobs = async () => {
-    const services = new Services()
-    const status = Number.parseInt(value) - 1
-    const { error, response } = await services.GetByStatus(status.toString())
-    console.log(response)
-    if (!error && response) setJobs(response)
-  }
-
   React.useEffect(() => {
-    GetJobs()
+    GetJobs(Number.parseInt(value) - 1)
   }, [value])
 
   return (

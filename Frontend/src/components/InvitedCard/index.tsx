@@ -2,6 +2,7 @@ import { Place, Work } from '@mui/icons-material'
 import { Avatar, Button, Grid } from '@mui/material'
 import Services from './services'
 import { convertCategory } from '../AcceptedCard'
+import { useJob } from '../../hooks/JobContext'
 
 type InvitedCardsProps = {
   name: string
@@ -22,6 +23,8 @@ export function InvitedCard({
   suburb,
   price,
 }: InvitedCardsProps) {
+  const { GetJobs } = useJob()
+
   function stringToColor(string: string) {
     let hash = 0
     let i
@@ -64,7 +67,7 @@ export function InvitedCard({
     const { error } = await services.Update({ id, approved })
 
     if (!error) {
-      console.log('deu certo')
+      GetJobs(0)
     }
   }
 
