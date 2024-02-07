@@ -5,6 +5,7 @@ using LeadApplication.Domain.Interfaces.Services;
 using LeadApplication.Domain.Query.ListTeste;
 using LeadApplication.Infrastructure.Database;
 using LeadApplication.Infrastructure.Database.Repository;
+using LeadApplication.Infrastructure.Seed;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
@@ -68,7 +69,9 @@ namespace LeadApplication.API
                         typeof(ListJobQueryHandler).Assembly)
             );
 
-       
+
+          
+
         }
     }
 }

@@ -1,4 +1,8 @@
-﻿namespace LeadApplication.API
+﻿using LeadApplication.Infrastructure.Database;
+using LeadApplication.Infrastructure.Seed;
+using Microsoft.EntityFrameworkCore;
+
+namespace LeadApplication.API
 {
     public static class StartupExtensions
     {
@@ -15,6 +19,14 @@
             startup.ConfigureServices(WebAppBuilder.Services);
 
             var app = WebAppBuilder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<DatabaseContext>();
+                context.Database.Migrate();
+                DatabaseSeed.Seed(context);
+            }
 
             startup.Configure(app, app.Environment);
 
